@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import './i18n';
@@ -10,11 +10,17 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
+import ServiceDetail from './components/services/ServiceDetail';
 
 function App() {
   const { t } = useTranslation();
+  const [chatState, setChatState] = useState({
+    isOpen: false,
+    minimized: false,
+    recipient: null
+  });
 
-    useEffect(() => {
+  useEffect(() => {
     // Load Facebook SDK
     window.fbAsyncInit = function() {
       window.FB.init({
@@ -44,9 +50,17 @@ function App() {
             <Route 
               path="/dashboard" 
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                   <Dashboard />
-                </ProtectedRoute>
+                // </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/service/:id" 
+              element={
+                // <ProtectedRoute>
+                  <ServiceDetail />
+                // </ProtectedRoute>
               } 
             />
             <Route path="/" element={<Navigate to="/dashboard" />} />
