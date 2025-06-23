@@ -11,29 +11,28 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 
-// Facebook SDK initialization
-useEffect(() => {
-  // Load Facebook SDK
-  window.fbAsyncInit = function() {
-    window.FB.init({
-      appId: 'YOUR_FACEBOOK_APP_ID', // Replace with your Facebook App ID
-      cookie: true,
-      xfbml: true,
-      version: 'v18.0'
-    });
-  };
-
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-}, []);
-
 function App() {
   const { t } = useTranslation();
+
+    useEffect(() => {
+    // Load Facebook SDK
+    window.fbAsyncInit = function() {
+      window.FB.init({
+        appId: 'YOUR_FACEBOOK_APP_ID', // Replace with your Facebook App ID
+        cookie: true,
+        xfbml: true,
+        version: 'v18.0'
+      });
+    };
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }, []);
   
   return (
     <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID"> {/* Replace with your Google Client ID */}
