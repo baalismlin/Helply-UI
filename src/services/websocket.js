@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 class WebSocketService {
   socket = null;
   
-  connect(url = 'ws://localhost:8080') {
+  connect(url = '/') {
     this.socket = io(url, {
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,

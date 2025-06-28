@@ -3,11 +3,11 @@ import { useParams, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../contexts/AuthContext'
 
-function ServiceDetail() {
+function TaskDetail() {
   const { id } = useParams()
   const { t } = useTranslation()
   const { user } = useAuth()
-  const [service, setService] = useState(null)
+  const [task, setTask] = useState(null)
   const [loading, setLoading] = useState(true)
   const [bookmarked, setBookmarked] = useState(false)
   const [providerBookmarked, setProviderBookmarked] = useState(false)
@@ -17,14 +17,14 @@ function ServiceDetail() {
 
   useEffect(() => {
     // This would be replaced with an actual API call
-    const fetchServiceDetails = async () => {
+    const fetchTaskDetails = async () => {
       setLoading(true)
       try {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 500))
 
-        // Mock service data
-        const mockService = {
+        // Mock task data
+        const mockTask = {
           id: parseInt(id),
           title: 'Professional Photography',
           description:
@@ -52,7 +52,7 @@ function ServiceDetail() {
             userName: 'Jane Smith',
             rating: 5,
             comment:
-              'Excellent service! John was professional and delivered the photos quickly.',
+              'Excellent task! John was professional and delivered the photos quickly.',
             createdAt: '2023-06-10',
           },
           {
@@ -66,19 +66,19 @@ function ServiceDetail() {
           },
         ]
 
-        setService(mockService)
+        setTask(mockTask)
         setReviews(mockReviews)
       } catch (error) {
-        console.error('Error fetching service details:', error)
+        console.error('Error fetching task details:', error)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchServiceDetails()
+    fetchTaskDetails()
   }, [id])
 
-  const handleBookmarkService = () => {
+  const handleBookmarkTask = () => {
     setBookmarked(!bookmarked)
     // In a real app, you would call an API to save the bookmark
   }
@@ -123,11 +123,11 @@ function ServiceDetail() {
     )
   }
 
-  if (!service) {
+  if (!task) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center py-10 text-gray-500">
-          {t('service_not_found')}
+          {t('task_not_found')}
         </div>
       </div>
     )
@@ -146,46 +146,44 @@ function ServiceDetail() {
           <li className="mx-2">/</li>
           <li className="mr-2">
             <Link
-              to={`/dashboard?category=${service.category}`}
+              to={`/dashboard?category=${task.category}`}
               className="hover:text-blue-600"
             >
-              {t(service.category)}
+              {t(task.category)}
             </Link>
           </li>
           <li className="mx-2">/</li>
-          <li className="font-medium text-gray-900">{service.title}</li>
+          <li className="font-medium text-gray-900">{task.title}</li>
         </ol>
       </nav>
 
-      {/* Service details */}
+      {/* Task details */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         {/* Image gallery */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
           <div className="md:col-span-2">
             <img
-              src={service.images[0]}
-              alt={service.title}
+              src={task.images[0]}
+              alt={task.title}
               className="w-full h-96 object-cover rounded-lg"
             />
           </div>
-          {service.images.slice(1).map((image, index) => (
+          {task.images.slice(1).map((image, index) => (
             <img
               key={index}
               src={image}
-              alt={`${service.title} ${index + 2}`}
+              alt={`${task.title} ${index + 2}`}
               className="w-full h-48 object-cover rounded-lg"
             />
           ))}
         </div>
 
-        {/* Service info */}
+        {/* Task info */}
         <div className="p-6">
           <div className="flex justify-between items-start">
-            <h1 className="text-2xl font-bold text-gray-900">
-              {service.title}
-            </h1>
+            <h1 className="text-2xl font-bold text-gray-900">{task.title}</h1>
             <button
-              onClick={handleBookmarkService}
+              onClick={handleBookmarkTask}
               className={`p-2 rounded-full ${
                 bookmarked
                   ? 'text-yellow-500'
@@ -211,13 +209,13 @@ function ServiceDetail() {
 
           <div className="mt-2 flex items-center">
             <span className="text-blue-600 text-2xl font-bold">
-              ${service.price}
+              ${task.price}
             </span>
             <span className="ml-4 px-2 py-1 bg-gray-100 text-gray-800 text-sm rounded">
-              {service.city}
+              {task.city}
             </span>
             <span className="ml-4 text-sm text-gray-500">
-              {t('posted_on')} {service.createdAt}
+              {t('posted_on')} {task.createdAt}
             </span>
           </div>
 
@@ -225,7 +223,7 @@ function ServiceDetail() {
             <h2 className="text-lg font-medium text-gray-900">
               {t('description')}
             </h2>
-            <p className="mt-2 text-gray-600">{service.description}</p>
+            <p className="mt-2 text-gray-600">{task.description}</p>
           </div>
 
           {/* Provider info */}
@@ -233,11 +231,11 @@ function ServiceDetail() {
             <div className="flex justify-between items-center">
               <div className="flex items-center">
                 <div className="h-12 w-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-                  {service.provider.charAt(0)}
+                  {task.provider.charAt(0)}
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-medium text-gray-900">
-                    {service.provider}
+                    {task.provider}
                   </h3>
                   <div className="flex items-center">
                     <div className="flex items-center"></div>
@@ -359,4 +357,4 @@ function ServiceDetail() {
   )
 }
 
-export default ServiceDetail
+export default TaskDetail

@@ -31,7 +31,7 @@ function Login() {
   
   const handleGoogleLogin = async (credentialResponse) => {
     try {
-      await socialLogin('google', credentialResponse.credential);
+      await socialLogin('GOOGLE', credentialResponse.credential);
       navigate('/dashboard');
     } catch (err) {
       setError(t('google_login_failed'));
@@ -44,7 +44,7 @@ function Login() {
     window.FB.login(async (response) => {
       if (response.authResponse) {
         try {
-          await socialLogin('facebook', response.authResponse.accessToken);
+          await socialLogin('FACEBOOK', response.authResponse.accessToken);
           navigate('/dashboard');
         } catch (err) {
           setError(t('facebook_login_failed'));

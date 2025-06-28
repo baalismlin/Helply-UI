@@ -33,9 +33,9 @@ const resources = {
       "send_ping": "Send Ping",
       "language_settings": "Language Settings",
       // Marketplace translations
-      "marketplace": "Service Marketplace",
+      "marketplace": "Task Marketplace",
       "categories": "Categories",
-      "all": "All Services",
+      "all": "All Tasks",
       "errands": "Errands",
       "pet_care": "Pet Care",
       "photography": "Photography",
@@ -44,10 +44,10 @@ const resources = {
       "writing": "Writing",
       "translation": "Translation",
       "remote_assistance": "Remote Assistance",
-      "search_services": "Search for services...",
-      "no_services_found": "No services found matching your criteria",
+      "search_tasks": "Search for tasks...",
+      "no_tasks_found": "No tasks found matching your criteria",
       "contact": "Contact",
-      "post_service": "Post a Service",
+      "post_task": "Post a Task",
       "title": "Title",
       "description": "Description",
       "category": "Category",
@@ -63,7 +63,7 @@ const resources = {
       // New translations
       "messages": "Messages",
       "following_users": "Following Users",
-      "favorite_services": "Favorite Services",
+      "favorite_tasks": "Favorite Tasks",
       "profile_information": "Profile Information",
       "edit_profile": "Edit Profile",
       "member_since": "Member Since",
@@ -88,7 +88,14 @@ const resources = {
       "password_changed": "Password changed successfully",
       "password_change_failed": "Failed to change password",
       "profile_updated": "Profile updated successfully",
-      "profile_update_failed": "Failed to update profile"
+      "profile_update_failed": "Failed to update profile",
+      "task_not_found": "Task not found",
+      "posted_on": "Posted on",
+      "contact_provider": "Contact Provider",
+      "reviews_and_comments": "Reviews and Comments",
+      "your_rating": "Your rating",
+      "write_a_review": "Write a review...",
+      "no_reviews_yet": "No reviews yet"
     }
   },
   es: {
@@ -120,9 +127,9 @@ const resources = {
       "send_ping": "Enviar Ping",
       "language_settings": "Configuración de idioma",
       // Marketplace translations
-      "marketplace": "Mercado de Servicios",
+      "marketplace": "Mercado de Tareas",
       "categories": "Categorías",
-      "all": "Todos los Servicios",
+      "all": "Todas las Tareas",
       "errands": "Recados",
       "pet_care": "Cuidado de Mascotas",
       "photography": "Fotografía",
@@ -131,10 +138,10 @@ const resources = {
       "writing": "Escritura",
       "translation": "Traducción",
       "remote_assistance": "Asistencia Remota",
-      "search_services": "Buscar servicios...",
-      "no_services_found": "No se encontraron servicios que coincidan con sus criterios",
+      "search_tasks": "Buscar tareas...",
+      "no_tasks_found": "No se encontraron tareas que coincidan con sus criterios",
       "contact": "Contactar",
-      "post_service": "Publicar un Servicio",
+      "post_task": "Publicar una Tarea",
       "title": "Título",
       "description": "Descripción",
       "category": "Categoría",
@@ -150,7 +157,7 @@ const resources = {
       // New translations
       "messages": "Mensajes",
       "following_users": "Usuarios Seguidos",
-      "favorite_services": "Servicios Favoritos",
+      "favorite_tasks": "Tareas Favoritas",
       "profile_information": "Información de Perfil",
       "edit_profile": "Editar Perfil",
       "member_since": "Miembro Desde",
@@ -175,7 +182,14 @@ const resources = {
       "password_changed": "Contraseña cambiada con éxito",
       "password_change_failed": "Error al cambiar la contraseña",
       "profile_updated": "Perfil actualizado con éxito",
-      "profile_update_failed": "Error al actualizar el perfil"
+      "profile_update_failed": "Error al actualizar el perfil",
+      "task_not_found": "Tarea no encontrada",
+      "posted_on": "Publicado el",
+      "contact_provider": "Contactar al proveedor",
+      "reviews_and_comments": "Reseñas y comentarios",
+      "your_rating": "Tu calificación",
+      "write_a_review": "Escribir una reseña...",
+      "no_reviews_yet": "Aún no hay reseñas"
     }
   },
   de: {
@@ -207,9 +221,9 @@ const resources = {
       "send_ping": "Ping senden",
       "language_settings": "Spracheinstellungen",
       // Marketplace translations
-      "marketplace": "Dienstleistungsmarktplatz",
+      "marketplace": "Aufgabenmarktplatz",
       "categories": "Kategorien",
-      "all": "Alle Dienstleistungen",
+      "all": "Alle Aufgaben",
       "errands": "Besorgungen",
       "pet_care": "Tierpflege",
       "photography": "Fotografie",
@@ -218,10 +232,10 @@ const resources = {
       "writing": "Schreiben",
       "translation": "Übersetzung",
       "remote_assistance": "Fernunterstützung",
-      "search_services": "Dienstleistungen suchen...",
-      "no_services_found": "Keine Dienstleistungen gefunden, die Ihren Kriterien entsprechen",
+      "search_tasks": "Aufgaben suchen...",
+      "no_tasks_found": "Keine Aufgaben gefunden, die Ihren Kriterien entsprechen",
       "contact": "Kontakt",
-      "post_service": "Dienstleistung anbieten",
+      "post_task": "Aufgabe anbieten",
       "title": "Titel",
       "description": "Beschreibung",
       "category": "Kategorie",
@@ -237,7 +251,7 @@ const resources = {
       // New translations
       "messages": "Nachrichten",
       "following_users": "Gefolgte Benutzer",
-      "favorite_services": "Favorisierte Dienstleistungen",
+      "favorite_tasks": "Favorisierte Aufgaben",
       "profile_information": "Profilinformationen",
       "edit_profile": "Profil bearbeiten",
       "member_since": "Mitglied seit",
@@ -262,7 +276,14 @@ const resources = {
       "password_changed": "Passwort erfolgreich geändert",
       "password_change_failed": "Passwortänderung fehlgeschlagen",
       "profile_updated": "Profil erfolgreich aktualisiert",
-      "profile_update_failed": "Profilaktualisierung fehlgeschlagen"
+      "profile_update_failed": "Profilaktualisierung fehlgeschlagen",
+      "task_not_found": "Aufgabe nicht gefunden",
+      "posted_on": "Veröffentlicht am",
+      "contact_provider": "Anbieter kontaktieren",
+      "reviews_and_comments": "Bewertungen und Kommentare",
+      "your_rating": "Ihre Bewertung",
+      "write_a_review": "Eine Bewertung schreiben...",
+      "no_reviews_yet": "Noch keine Bewertungen"
     }
   }
 };

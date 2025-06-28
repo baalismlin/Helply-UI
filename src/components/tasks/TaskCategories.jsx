@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-function ServiceCategories({ selectedCategory, setSelectedCategory }) {
+function TaskCategories({ selectedCategory, setSelectedCategory }) {
   const { t } = useTranslation();
   
   const categories = [
@@ -40,4 +40,4 @@ function ServiceCategories({ selectedCategory, setSelectedCategory }) {
   );
 }
 
-export default ServiceCategories;
+export default TaskCategories;
