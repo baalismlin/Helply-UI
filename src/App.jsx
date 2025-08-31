@@ -58,17 +58,17 @@ function App() {
             <Route
               path="/dashboard"
               element={
-                // <ProtectedRoute>
+                <ProtectedRoute>
                 <Dashboard />
-                // </ProtectedRoute>
+                </ProtectedRoute>
               }
             />
             <Route
               path="/task/:id"
               element={
-                // <ProtectedRoute>
+                <ProtectedRoute>
                 <TaskDetail />
-                // </ProtectedRoute>
+                </ProtectedRoute>
               }
             />
             <Route path="/" element={<Navigate to="/dashboard" />} />

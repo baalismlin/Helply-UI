@@ -1,109 +1,47 @@
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'
+import BaseService from './base'
 
-const API_URL = '/api';
-
-class AuthService {
+class AuthService extends BaseService {
   async login(email, password) {
-    try {
-      const response = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-      
-      const data = await response.json();
-      this.setToken(data.token);
-      return data;
-    } catch (error) {
-      console.error('Login error:', error);
-      throw error;
-    }
+    const { token } = await this.post('auth/login', { email, password })
+    this.setToken(token)
   }
-  
+
   async register(name, email, password) {
-    try {
-      const response = await fetch(`${API_URL}/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Registration failed');
-      }
-      
-      return await response.json();
-    } catch (error) {
-      console.error('Registration error:', error);
-      throw error;
-    }
+    return await this.post('auth/register', { name, email, password })
   }
-  
+
   async socialLogin(provider, token) {
-    try {
-      const response = await fetch(`${API_URL}/auth/${provider}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
-      });
-      
-      if (!response.ok) {
-        throw new Error(`${provider} login failed`);
-      }
-      
-      const data = await response.json();
-      this.setToken(data.token);
-      return data;
-    } catch (error) {
-      console.error(`${provider} login error:`, error);
-      throw error;
-    }
+    const data = await this.post(`auth/${provider}`, { token })
+    this.setToken(data.token)
   }
-  
+
   logout() {
-    localStorage.removeItem('token');
+    this.removeToken
   }
-  
-  setToken(token) {
-    localStorage.setItem('token', token);
-  }
-  
-  getToken() {
-    return localStorage.getItem('token');
-  }
-  
+
   isAuthenticated() {
-    const token = this.getToken();
-    if (!token) return false;
-    
+    const token = this.getToken()
+    if (!token) return false
+
     try {
-      const decoded = jwtDecode(token);
-      return decoded.exp > Date.now() / 1000;
+      const decoded = jwtDecode(token)
+      return decoded.exp > Date.now() / 1000
     } catch (error) {
-      return false;
+      return false
     }
   }
-  
+
   getUser() {
-    const token = this.getToken();
-    if (!token) return null;
-    
+    const token = this.getToken()
+    if (!token) return null
+
     try {
-      return jwtDecode(token);
+      return jwtDecode(token)
     } catch (error) {
-      return null;
+      return null
     }
   }
 }
 
-export default new AuthService();
+export default new AuthService()
