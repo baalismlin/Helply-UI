@@ -9,7 +9,6 @@ function TaskList({ searchQuery, selectedCategory }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // This would be replaced with an actual API call
     const fetchTasks = async () => {
       setLoading(true)
       try {
