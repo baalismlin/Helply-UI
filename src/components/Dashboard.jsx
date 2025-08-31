@@ -1,104 +1,104 @@
-import { useEffect, useState, useRef } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import WebSocketService from '../services/websocket'
-import TaskCategories from './tasks/TaskCategories'
-import TaskList from './tasks/TaskList'
-import SearchBar from './tasks/SearchBar'
-import PostTaskModal from './tasks/PostTaskModal'
-import ChatWindow from './chat/ChatWindow'
+import { useEffect, useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import WebSocketService from "../services/websocket";
+import TaskCategories from "./tasks/TaskCategories";
+import TaskList from "./tasks/TaskList";
+import SearchBar from "./tasks/SearchBar";
+import PostTaskModal from "./tasks/PostTaskModal";
+import ChatWindow from "./chat/ChatWindow";
 
 function Dashboard() {
-  const { t } = useTranslation()
-  const navigate = useNavigate()
-  const { user, logout } = useAuth()
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState(null)
-  const [showPostForm, setShowPostForm] = useState(false)
-  const [dropdownOpen, setDropdownOpen] = useState(false)
-  const [unreadMessages, setUnreadMessages] = useState(0)
-  const [showChatPanel, setShowChatPanel] = useState(false)
-  const [showFollowingUsers, setShowFollowingUsers] = useState(false)
-  const [showFavoriteTasks, setShowFavoriteTasks] = useState(false)
-  const [showProfileInfo, setShowProfileInfo] = useState(false)
-  const [chatRecipient, setChatRecipient] = useState(null)
-  const [minimizedChat, setMinimizedChat] = useState(false)
-  const dropdownRef = useRef(null)
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [showPostForm, setShowPostForm] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [unreadMessages, setUnreadMessages] = useState(0);
+  const [showChatPanel, setShowChatPanel] = useState(false);
+  const [showFollowingUsers, setShowFollowingUsers] = useState(false);
+  const [showFavoriteTasks, setShowFavoriteTasks] = useState(false);
+  const [showProfileInfo, setShowProfileInfo] = useState(false);
+  const [chatRecipient, setChatRecipient] = useState(null);
+  const [minimizedChat, setMinimizedChat] = useState(false);
+  const dropdownRef = useRef(null);
 
   // Connect to WebSocket
   useEffect(() => {
-    const socket = WebSocketService.connect()
+    const socket = WebSocketService.connect();
 
     // Listen for new messages to update unread count
-    socket.on('new_message', (message) => {
+    socket.on("new_message", (message) => {
       if (message.receiverId === user?.id && !message.read) {
-        setUnreadMessages((prev) => prev + 1)
+        setUnreadMessages((prev) => prev + 1);
       }
-    })
+    });
 
     return () => {
-      WebSocketService.disconnect()
-    }
-  }, [user?.id])
+      WebSocketService.disconnect();
+    };
+  }, [user?.id]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false)
+        setDropdownOpen(false);
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
+    logout();
+    navigate("/login");
+  };
 
   const handleOpenChatPanel = () => {
-    setShowChatPanel(true)
-    setShowFollowingUsers(false)
-    setShowFavoriteTasks(false)
-    setShowProfileInfo(false)
-    setDropdownOpen(false)
-  }
+    setShowChatPanel(true);
+    setShowFollowingUsers(false);
+    setShowFavoriteTasks(false);
+    setShowProfileInfo(false);
+    setDropdownOpen(false);
+  };
 
   const handleOpenFollowingUsers = () => {
-    setShowFollowingUsers(true)
-    setShowChatPanel(false)
-    setShowFavoriteTasks(false)
-    setShowProfileInfo(false)
-    setDropdownOpen(false)
-  }
+    setShowFollowingUsers(true);
+    setShowChatPanel(false);
+    setShowFavoriteTasks(false);
+    setShowProfileInfo(false);
+    setDropdownOpen(false);
+  };
 
   const handleOpenFavoriteTasks = () => {
-    setShowFavoriteTasks(true)
-    setShowChatPanel(false)
-    setShowFollowingUsers(false)
-    setShowProfileInfo(false)
-    setDropdownOpen(false)
-  }
+    setShowFavoriteTasks(true);
+    setShowChatPanel(false);
+    setShowFollowingUsers(false);
+    setShowProfileInfo(false);
+    setDropdownOpen(false);
+  };
 
   const handleOpenProfileInfo = () => {
-    setShowProfileInfo(true)
-    setShowChatPanel(false)
-    setShowFollowingUsers(false)
-    setShowFavoriteTasks(false)
-    setDropdownOpen(false)
-  }
+    setShowProfileInfo(true);
+    setShowChatPanel(false);
+    setShowFollowingUsers(false);
+    setShowFavoriteTasks(false);
+    setDropdownOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-semibold">{t('marketplace')}</h1>
+          <h1 className="text-xl font-semibold">{t("marketplace")}</h1>
           <div
             className="flex items-center space-x-4 relative"
             ref={dropdownRef}
@@ -109,7 +109,7 @@ function Dashboard() {
             >
               <div className="relative">
                 <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
-                  {user?.name?.charAt(0) || user?.email?.charAt(0) || '?'}
+                  {user?.name?.charAt(0) || user?.sub?.charAt(0) || "?"}
                 </div>
                 {unreadMessages > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -117,7 +117,7 @@ function Dashboard() {
                   </span>
                 )}
               </div>
-              <span className="ml-2">{user?.name || user?.email}</span>
+              <span className="ml-2">{user?.name || user?.sub}</span>
             </div>
 
             {/* Dropdown Menu */}
@@ -128,7 +128,7 @@ function Dashboard() {
                     onClick={handleOpenChatPanel}
                     className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center justify-between"
                   >
-                    <span>{t('messages')}</span>
+                    <span>{t("messages")}</span>
                     {unreadMessages > 0 && (
                       <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                         {unreadMessages}
@@ -139,26 +139,26 @@ function Dashboard() {
                     onClick={handleOpenFollowingUsers}
                     className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                   >
-                    {t('following_users')}
+                    {t("following_users")}
                   </button>
                   <button
                     onClick={handleOpenFavoriteTasks}
                     className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                   >
-                    {t('favorite_tasks')}
+                    {t("favorite_tasks")}
                   </button>
                   <button
                     onClick={handleOpenProfileInfo}
                     className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                   >
-                    {t('profile_information')}
+                    {t("profile_information")}
                   </button>
                   <hr className="my-1" />
                   <button
                     onClick={handleLogout}
                     className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
                   >
-                    {t('logout')}
+                    {t("logout")}
                   </button>
                 </div>
               </div>
@@ -208,7 +208,7 @@ function Dashboard() {
                   d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                 />
               </svg>
-              {t('post_service')}
+              {t("post_service")}
             </button>
           </div>
 
@@ -221,7 +221,7 @@ function Dashboard() {
           {showChatPanel && (
             <div className="fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-white shadow-lg z-40 border-l border-gray-200">
               <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-                <h2 className="font-medium">{t('messages')}</h2>
+                <h2 className="font-medium">{t("messages")}</h2>
                 <button
                   onClick={() => setShowChatPanel(false)}
                   className="text-gray-500 hover:text-gray-700"
@@ -249,8 +249,8 @@ function Dashboard() {
                     key={id}
                     className="p-4 border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
                     onClick={() => {
-                      setChatRecipient({ id, name: `User ${id}` })
-                      setMinimizedChat(false)
+                      setChatRecipient({ id, name: `User ${id}` });
+                      setMinimizedChat(false);
                     }}
                   >
                     <div className="flex items-center">
@@ -274,7 +274,7 @@ function Dashboard() {
           {showFollowingUsers && (
             <div className="fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-white shadow-lg z-40 border-l border-gray-200">
               <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-                <h2 className="font-medium">{t('following_users')}</h2>
+                <h2 className="font-medium">{t("following_users")}</h2>
                 <button
                   onClick={() => setShowFollowingUsers(false)}
                   className="text-gray-500 hover:text-gray-700"
@@ -341,7 +341,7 @@ function Dashboard() {
           {showFavoriteTasks && (
             <div className="fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-white shadow-lg z-40 border-l border-gray-200">
               <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-                <h2 className="font-medium">{t('favorite_services')}</h2>
+                <h2 className="font-medium">{t("favorite_services")}</h2>
                 <button
                   onClick={() => setShowFavoriteTasks(false)}
                   className="text-gray-500 hover:text-gray-700"
@@ -390,7 +390,7 @@ function Dashboard() {
           {showProfileInfo && (
             <div className="fixed top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-white shadow-lg z-40 border-l border-gray-200">
               <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-                <h2 className="font-medium">{t('profile_information')}</h2>
+                <h2 className="font-medium">{t("profile_information")}</h2>
                 <button
                   onClick={() => setShowProfileInfo(false)}
                   className="text-gray-500 hover:text-gray-700"
@@ -414,31 +414,31 @@ function Dashboard() {
               <div className="p-4">
                 <div className="flex flex-col items-center mb-6">
                   <div className="h-24 w-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-3xl font-bold mb-3">
-                    {user?.name?.charAt(0) || user?.email?.charAt(0) || '?'}
+                    {user?.name?.charAt(0) || user?.sub?.charAt(0) || "?"}
                   </div>
                   <h3 className="text-xl font-medium">
-                    {user?.name || user?.email}
+                    {user?.name || user?.sub}
                   </h3>
                 </div>
 
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('email')}
+                      {t("email")}
                     </label>
-                    <p className="text-gray-900">{user?.email}</p>
+                    <p className="text-gray-900">{user?.sub}</p>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('name')}
+                      {t("name")}
                     </label>
-                    <p className="text-gray-900">{user?.name || '-'}</p>
+                    <p className="text-gray-900">{user?.name || "-"}</p>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('member_since')}
+                      {t("member_since")}
                     </label>
                     <p className="text-gray-900">
                       {new Date().toLocaleDateString()}
@@ -446,7 +446,7 @@ function Dashboard() {
                   </div>
 
                   <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                    {t('edit_profile')}
+                    {t("edit_profile")}
                   </button>
                 </div>
               </div>
@@ -465,7 +465,7 @@ function Dashboard() {
         />
       )}
     </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

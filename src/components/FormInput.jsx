@@ -1,8 +1,15 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-function FormInput({ id, type, value, onChange, required = false, autoComplete = 'on' }) {
+function FormInput({
+  id,
+  type,
+  value,
+  onChange,
+  required = false,
+  autoComplete = "on",
+}) {
   const { t } = useTranslation();
-  
+
   return (
     <div>
       <label className="block text-gray-700 mb-2" htmlFor={id}>

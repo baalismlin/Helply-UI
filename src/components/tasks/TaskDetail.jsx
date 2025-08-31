@@ -1,117 +1,117 @@
-import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { useAuth } from '../../contexts/AuthContext'
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useAuth } from "../../contexts/AuthContext";
 
 function TaskDetail() {
-  const { id } = useParams()
-  const { t } = useTranslation()
-  const { user } = useAuth()
-  const [task, setTask] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [bookmarked, setBookmarked] = useState(false)
-  const [providerBookmarked, setProviderBookmarked] = useState(false)
-  const [reviews, setReviews] = useState([])
-  const [newReview, setNewReview] = useState('')
-  const [rating, setRating] = useState(5)
+  const { id } = useParams();
+  const { t } = useTranslation();
+  const { user } = useAuth();
+  const [task, setTask] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [bookmarked, setBookmarked] = useState(false);
+  const [providerBookmarked, setProviderBookmarked] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState("");
+  const [rating, setRating] = useState(5);
 
   useEffect(() => {
     // This would be replaced with an actual API call
     const fetchTaskDetails = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
         // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 500))
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         // Mock task data
         const mockTask = {
           id: parseInt(id),
-          title: 'Professional Photography',
+          title: "Professional Photography",
           description:
-            'High-quality photos for your events. I specialize in event photography, portraits, and product photography. With over 5 years of experience, I can help capture your special moments with professional equipment and editing.',
+            "High-quality photos for your events. I specialize in event photography, portraits, and product photography. With over 5 years of experience, I can help capture your special moments with professional equipment and editing.",
           price: 50,
-          category: 'photography',
-          city: 'New York',
-          provider: 'John Doe',
-          providerId: 'user123',
+          category: "photography",
+          city: "New York",
+          provider: "John Doe",
+          providerId: "user123",
           providerRating: 4.8,
           providerReviews: 24,
           images: [
-            'https://via.placeholder.com/800x600',
-            'https://via.placeholder.com/800x600',
-            'https://via.placeholder.com/800x600',
+            "https://via.placeholder.com/800x600",
+            "https://via.placeholder.com/800x600",
+            "https://via.placeholder.com/800x600",
           ],
-          createdAt: '2023-05-15',
-        }
+          createdAt: "2023-05-15",
+        };
 
         // Mock reviews
         const mockReviews = [
           {
             id: 1,
-            userId: 'user456',
-            userName: 'Jane Smith',
+            userId: "user456",
+            userName: "Jane Smith",
             rating: 5,
             comment:
-              'Excellent task! John was professional and delivered the photos quickly.',
-            createdAt: '2023-06-10',
+              "Excellent task! John was professional and delivered the photos quickly.",
+            createdAt: "2023-06-10",
           },
           {
             id: 2,
-            userId: 'user789',
-            userName: 'Mike Johnson',
+            userId: "user789",
+            userName: "Mike Johnson",
             rating: 4,
             comment:
-              'Good quality photos, but took a bit longer than expected to deliver.',
-            createdAt: '2023-06-05',
+              "Good quality photos, but took a bit longer than expected to deliver.",
+            createdAt: "2023-06-05",
           },
-        ]
+        ];
 
-        setTask(mockTask)
-        setReviews(mockReviews)
+        setTask(mockTask);
+        setReviews(mockReviews);
       } catch (error) {
-        console.error('Error fetching task details:', error)
+        console.error("Error fetching task details:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchTaskDetails()
-  }, [id])
+    fetchTaskDetails();
+  }, [id]);
 
   const handleBookmarkTask = () => {
-    setBookmarked(!bookmarked)
+    setBookmarked(!bookmarked);
     // In a real app, you would call an API to save the bookmark
-  }
+  };
 
   const handleBookmarkProvider = () => {
-    setProviderBookmarked(!providerBookmarked)
+    setProviderBookmarked(!providerBookmarked);
     // In a real app, you would call an API to save the bookmark
-  }
+  };
 
   const handleSubmitReview = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!newReview.trim()) return
+    if (!newReview.trim()) return;
 
     // In a real app, you would call an API to save the review
     const newReviewObj = {
       id: Date.now(),
-      userId: user?.id || 'currentUser',
-      userName: user?.name || 'You',
+      userId: user?.id || "currentUser",
+      userName: user?.name || "You",
       rating,
       comment: newReview,
-      createdAt: new Date().toISOString().split('T')[0],
-    }
+      createdAt: new Date().toISOString().split("T")[0],
+    };
 
-    setReviews([newReviewObj, ...reviews])
-    setNewReview('')
-    setRating(5)
-  }
+    setReviews([newReviewObj, ...reviews]);
+    setNewReview("");
+    setRating(5);
+  };
 
   const handleOpenChat = () => {
     // This would open the chat with the provider
     // We'll implement this later
-  }
+  };
 
   if (loading) {
     return (
@@ -120,17 +120,17 @@ function TaskDetail() {
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
         </div>
       </div>
-    )
+    );
   }
 
   if (!task) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center py-10 text-gray-500">
-          {t('task_not_found')}
+          {t("task_not_found")}
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -140,7 +140,7 @@ function TaskDetail() {
         <ol className="flex text-sm text-gray-500">
           <li className="mr-2">
             <Link to="/dashboard" className="hover:text-blue-600">
-              {t('marketplace')}
+              {t("marketplace")}
             </Link>
           </li>
           <li className="mx-2">/</li>
@@ -186,14 +186,14 @@ function TaskDetail() {
               onClick={handleBookmarkTask}
               className={`p-2 rounded-full ${
                 bookmarked
-                  ? 'text-yellow-500'
-                  : 'text-gray-400 hover:text-gray-500'
+                  ? "text-yellow-500"
+                  : "text-gray-400 hover:text-gray-500"
               }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
-                fill={bookmarked ? 'currentColor' : 'none'}
+                fill={bookmarked ? "currentColor" : "none"}
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
@@ -215,13 +215,13 @@ function TaskDetail() {
               {task.city}
             </span>
             <span className="ml-4 text-sm text-gray-500">
-              {t('posted_on')} {task.createdAt}
+              {t("posted_on")} {task.createdAt}
             </span>
           </div>
 
           <div className="mt-6">
             <h2 className="text-lg font-medium text-gray-900">
-              {t('description')}
+              {t("description")}
             </h2>
             <p className="mt-2 text-gray-600">{task.description}</p>
           </div>
@@ -243,7 +243,7 @@ function TaskDetail() {
                       onClick={handleOpenChat}
                       className="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                     >
-                      {t('contact_provider')}
+                      {t("contact_provider")}
                     </button>
                   </div>
                 </div>
@@ -252,13 +252,13 @@ function TaskDetail() {
               {/* Reviews section */}
               <div className="mt-8 border-t border-gray-200 pt-6">
                 <h2 className="text-lg font-medium text-gray-900">
-                  {t('reviews_and_comments')}
+                  {t("reviews_and_comments")}
                 </h2>
 
                 {/* Review form */}
                 <form onSubmit={handleSubmitReview} className="mt-4">
                   <div className="flex items-center mb-2">
-                    <span className="mr-2">{t('your_rating')}:</span>
+                    <span className="mr-2">{t("your_rating")}:</span>
                     <div className="flex">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <button
@@ -270,8 +270,8 @@ function TaskDetail() {
                           <svg
                             className={`h-5 w-5 ${
                               star <= rating
-                                ? 'text-yellow-400'
-                                : 'text-gray-300'
+                                ? "text-yellow-400"
+                                : "text-gray-300"
                             }`}
                             fill="currentColor"
                             viewBox="0 0 20 20"
@@ -286,7 +286,7 @@ function TaskDetail() {
                     <textarea
                       value={newReview}
                       onChange={(e) => setNewReview(e.target.value)}
-                      placeholder={t('write_a_review')}
+                      placeholder={t("write_a_review")}
                       className="flex-grow px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                       rows="2"
                       required
@@ -295,7 +295,7 @@ function TaskDetail() {
                       type="submit"
                       className="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700"
                     >
-                      {t('post')}
+                      {t("post")}
                     </button>
                   </div>
                 </form>
@@ -303,7 +303,7 @@ function TaskDetail() {
                 {/* Reviews list */}
                 <div className="mt-6 space-y-6">
                   {reviews.length === 0 ? (
-                    <p className="text-gray-500">{t('no_reviews_yet')}</p>
+                    <p className="text-gray-500">{t("no_reviews_yet")}</p>
                   ) : (
                     reviews.map((review) => (
                       <div
@@ -326,8 +326,8 @@ function TaskDetail() {
                                       key={i}
                                       className={`h-4 w-4 ${
                                         i < review.rating
-                                          ? 'text-yellow-400'
-                                          : 'text-gray-300'
+                                          ? "text-yellow-400"
+                                          : "text-gray-300"
                                       }`}
                                       fill="currentColor"
                                       viewBox="0 0 20 20"
@@ -354,7 +354,7 @@ function TaskDetail() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default TaskDetail
+export default TaskDetail;

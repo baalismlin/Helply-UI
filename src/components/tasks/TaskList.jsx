@@ -1,57 +1,57 @@
-import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-import TaskService from '../../services/task'
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import TaskService from "../../services/task";
 
 function TaskList({ searchQuery, selectedCategory }) {
-  const { t } = useTranslation()
-  const [tasks, setTasks] = useState([])
-  const [loading, setLoading] = useState(true)
+  const { t } = useTranslation();
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTasks = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
-        const tasks = await TaskService.getTasks()
+        const tasks = await TaskService.getTasks();
 
-        setTasks(tasks)
+        setTasks(tasks);
       } catch (error) {
-        console.error('Error fetching tasks:', error)
+        console.error("Error fetching tasks:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchTasks()
-  }, [])
+    fetchTasks();
+  }, []);
 
   // Filter tasks based on search query and selected category
   const filteredTasks = tasks.filter((task) => {
     const matchesSearch =
-      searchQuery === '' ||
+      searchQuery === "" ||
       task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      task.description.toLowerCase().includes(searchQuery.toLowerCase())
+      task.description.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesCategory =
-      selectedCategory === null || task.category === selectedCategory
+      selectedCategory === null || task.category === selectedCategory;
 
-    return matchesSearch && matchesCategory
-  })
+    return matchesSearch && matchesCategory;
+  });
 
   if (loading) {
     return (
       <div className="flex justify-center py-10">
         <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
       </div>
-    )
+    );
   }
 
   if (filteredTasks.length === 0) {
     return (
       <div className="text-center py-10 text-gray-500">
-        {t('no_tasks_found')}
+        {t("no_tasks_found")}
       </div>
-    )
+    );
   }
 
   return (
@@ -81,18 +81,18 @@ function TaskList({ searchQuery, selectedCategory }) {
               <button
                 className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600"
                 onClick={(e) => {
-                  e.preventDefault() // Prevent navigation to detail page
+                  e.preventDefault(); // Prevent navigation to detail page
                   // This would open the chat with the provider
                 }}
               >
-                {t('contact')}
+                {t("contact")}
               </button>
             </div>
           </div>
         </Link>
       ))}
     </div>
-  )
+  );
 }
 
-export default TaskList
+export default TaskList;
